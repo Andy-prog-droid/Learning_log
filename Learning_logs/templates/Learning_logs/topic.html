@@ -1,0 +1,34 @@
+{% extends 'Learning_logs/base.html' %}
+
+{% block page_header %}
+  <h1>{{ topic }}</h1>
+{% endblock page_header %}
+
+{% block content %}
+  <p><a class="btn btn-primary mb-3" href="{% url 'Learning_logs:new_entry' topic.id %}">Add a new entry</a></p>
+
+  {% for entry in entries %}
+    <div class="card mb-3">
+      
+      <h5 class="card-header d-flex justify-content-between align-items-center bg-light">
+        <div>
+          <small class="text-muted me-3">{{ entry.date_added|date:'M d, Y H:i' }}</small>
+          
+          <!-- ➕ Display edit badge only if it has actually been edited -->
+          {% if entry.edit_count > 0 %}
+            <span class="badge bg-info text-dark">Edited {{ entry.edit_count }} time{{ entry.edit_count|pluralize }}</span>
+          {% endif %}
+        </div>
+        
+        <a class="btn btn-outline-secondary btn-sm" href="{% url 'Learning_logs:edit_entry' entry.id %}">Edit entry</a>
+      </h5>
+      
+      <div class="card-body">
+        <p class="card-text">{{ entry.text|linebreaks }}</p>
+      </div>
+
+    </div>
+  {% empty %}
+    <div class="alert alert-warning" role="alert">There are no entries for this topic yet.</div>
+  {% endfor %}
+{% endblock content %}

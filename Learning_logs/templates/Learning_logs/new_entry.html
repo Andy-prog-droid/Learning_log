@@ -1,0 +1,15 @@
+{% extends "Learning_logs/base.html" %}
+
+{% block content %}
+  <!-- Dynamically displays the specific topic name -->
+  <p><a href="{% url 'Learning_logs:topic' topic.id %}">{{ topic }}</a></p>
+
+  <p>Add a new entry:</p>
+  
+  <!-- Sends data back to our new_entry view along with the topic ID -->
+  <form action="{% url 'Learning_logs:new_entry' topic.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Add entry</button>
+  </form>
+{% endblock content %}

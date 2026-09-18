@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning Log</title>
+
+  <!-- 🌟 Load the fixed Django Bootstrap Extension tags -->
+  {% load django_bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+
+<body>
+
+  <!-- 🧭 Bootstrap Fixed Top Navigation Bar -->
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+    <div class="container-fluid">
+      
+      <!-- Brand Logo / Home Link -->
+      <a class="navbar-brand" href="{% url 'Learning_logs:index' %}">Learning Log</a>
+
+      <!-- Mobile Burger Menu Button Toggle Toggle toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible Links -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Learning_logs:topics' %}">Topics</a>
+          </li>
+        </ul>
+
+        <!-- User Authentication & Account Actions Links -->
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <span class="navbar-text me-2">Hello, {{ user.username }}.</span>
+            </li>
+            <li class="nav-item">
+              <form action="{% url 'Accounts:logout' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn nav-link" style="background:none; border:none;">Log out</button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Accounts:register' %}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Accounts:login' %}">Log in</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- 📦 Main Page Body Content Container -->
+  <main class="container">
+    <div>
+      {% block content %}{% endblock content %}
+    </div>
+  </main>
+
+</body>
+</html>

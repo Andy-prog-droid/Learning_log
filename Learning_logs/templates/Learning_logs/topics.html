@@ -1,0 +1,34 @@
+{% extends 'Learning_logs/base.html' %}
+
+{% block page_header %}
+  <h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+  <ul class="list-group border-bottom pb-2 mb-4">
+    {% for topic in topics %}
+      <!-- Added d-flex layout to space out the name and the date -->
+      <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+        
+        <!-- Topic Name Link (Left Side) -->
+        <a href="{% url 'Learning_logs:topic' topic.id %}">
+          {{ topic }}
+        </a>
+
+        <!-- Topic Entry Date (Far Right Side) -->
+        <span class="text-muted small">
+          Added: {{ topic.date_added|date:'M d, Y' }}
+        </span>
+
+      </li>
+    {% empty %}
+      <li class="list-group-item border-0">No topics have been added yet.</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Button link styled beautifully using Bootstrap classes -->
+  <p><a class="btn btn-primary" href="{% url 'Learning_logs:new_topic' %}">Add a new topic</a></p>
+
+{% endblock content %}
+
+

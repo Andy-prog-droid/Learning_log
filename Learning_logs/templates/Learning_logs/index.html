@@ -1,0 +1,30 @@
+{% extends "Learning_logs/base.html" %}
+
+{% block content %}
+  <!-- 🚀 Modern Bootstrap Jumbotron Styling Container -->
+  <div class="p-5 mb-4 bg-light rounded-3 border">
+    <div class="container-fluid py-5">
+      
+      <!-- Big Attention-Grabbing Header Title -->
+      <h1 class="display-5 fw-bold">Track your learning.</h1>
+      
+      <!-- Informational Paragraph Text Subtitle -->
+      <p class="col-md-8 fs-4">
+        Learning Log helps you keep track of your learning, for any topic you're interested in. 
+        Whenever you learn something new, make an entry to summarize what you've picked up.
+      </p>
+
+      <!-- Contextual Action Buttons -->
+      {% if not user.is_authenticated %}
+        <a class="btn btn-primary btn-lg" href="{% url 'Accounts:register' %}" role="button">
+          Register &raquo;
+        </a>
+      {% else %}
+        <a class="btn btn-primary btn-lg" href="{% url 'Learning_logs:topics' %}" role="button">
+          View your topics &raquo;
+        </a>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock content %}
