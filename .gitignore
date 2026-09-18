@@ -1,0 +1,16 @@
+# Virtual environment
+ll_env/
+env/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local database (keeps your personal data off GitHub)
+db.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
